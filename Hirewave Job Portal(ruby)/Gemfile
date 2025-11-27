@@ -1,0 +1,17 @@
+source "https://rubygems.org"
+
+# Latest stable Sinatra (compatible with contrib)
+gem "sinatra", "~> 4.2"
+gem "sinatra-contrib", "~> 4.2"
+
+# PostgreSQL
+gem "pg", "~> 1.5"
+
+# Bcrypt latest stable (3.1.x series)
+gem "bcrypt", "~> 3.1"
+
+# Puma latest major (6.x)
+gem "puma", "~> 6.4"
+
+# Rack 3.x is *required* for Sinatra 4.x
+gem "rack", "~> 3.0"

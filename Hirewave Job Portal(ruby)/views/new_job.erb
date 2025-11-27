@@ -1,0 +1,43 @@
+<h2>Post a New Job</h2>
+
+<div class="card">
+  <form method="POST" action="/jobs">
+    <div class="form-group">
+      <label for="title">Job Title</label>
+      <input type="text" id="title" name="title" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="company">Company</label>
+      <input type="text" id="company" name="company" value="<%= current_user['company_name'] %>" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="location">Location</label>
+      <input type="text" id="location" name="location" placeholder="e.g., New York, NY or Remote">
+    </div>
+    
+    <div class="form-group">
+      <label for="salary">Salary</label>
+      <input type="text" id="salary" name="salary" placeholder="e.g., $80,000 - $100,000">
+    </div>
+    
+    <div class="form-group">
+      <label for="job_type">Job Type</label>
+      <select id="job_type" name="job_type">
+        <option value="">Select...</option>
+        <option value="Full-time">Full-time</option>
+        <option value="Part-time">Part-time</option>
+        <option value="Contract">Contract</option>
+        <option value="Internship">Internship</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="description">Job Description</label>
+      <textarea id="description" name="description" required placeholder="Describe the role, responsibilities, and requirements..."></textarea>
+    </div>
+    
+    <button type="submit" class="btn btn-success">Post Job</button>
+  </form>
+</div>

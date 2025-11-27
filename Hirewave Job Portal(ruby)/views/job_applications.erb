@@ -1,0 +1,29 @@
+<% if @job %>
+  <h2>Applications for: <%= @job['title'] %></h2>
+  
+  <a href="/my-jobs" class="btn" style="margin-bottom: 1rem; background: #95a5a6;">Back to My Jobs</a>
+  
+  <% if @applications.count == 0 %>
+    <div class="card">
+      <p>No applications received yet.</p>
+    </div>
+  <% else %>
+    <% @applications.each do |app| %>
+      <div class="card">
+        <h3><%= app['full_name'] %></h3>
+        <p><strong>Email:</strong> <%= app['email'] %></p>
+        <p><strong>Applied:</strong> <%= Time.parse(app['applied_at']).strftime('%B %d, %Y at %I:%M %p') %></p>
+        <p><strong>Status:</strong> <span style="color: #f39c12;"><%= app['status'].upcase %></span></p>
+        
+        <% if app['cover_letter'] && !app['cover_letter'].empty? %>
+          <div style="margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 4px;">
+            <strong>Cover Letter:</strong>
+            <p style="white-space: pre-wrap; margin-top: 0.5rem;"><%= app['cover_letter'] %></p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+<% else %>
+  <div class="alert alert-error">Job not found or you don't have permission to view applications.</div>
+<% end %>

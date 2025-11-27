@@ -1,0 +1,32 @@
+<h2>My Posted Jobs</h2>
+
+<a href="/jobs/new" class="btn btn-success" style="margin-bottom: 1rem;">Post New Job</a>
+
+<% if @jobs.count == 0 %>
+  <div class="card">
+    <p>You haven't posted any jobs yet.</p>
+  </div>
+<% else %>
+  <% @jobs.each do |job| %>
+    <div class="job-card">
+      <h3><%= job['title'] %></h3>
+      <div class="company"><%= job['company'] %></div>
+      <div class="meta">
+        <% if job['location'] %>
+          📍 <%= job['location'] %>
+        <% end %>
+        <% if job['salary'] %>
+          | 💰 <%= job['salary'] %>
+        <% end %>
+        <% if job['job_type'] %>
+          | 💼 <%= job['job_type'] %>
+        <% end %>
+      </div>
+      <div class="description">
+        <%= job['description'][0..200] %><%= job['description'].length > 200 ? '...' : '' %>
+      </div>
+      <a href="/jobs/<%= job['id'] %>" class="btn">View Details</a>
+      <a href="/jobs/<%= job['id'] %>/applications" class="btn btn-success">View Applications</a>
+    </div>
+  <% end %>
+<% end %>

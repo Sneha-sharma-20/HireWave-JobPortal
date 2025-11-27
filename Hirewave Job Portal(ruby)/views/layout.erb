@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HireWave</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f5f5;
+      line-height: 1.6;
+    }
+    
+    nav {
+      background: #2c3e50;
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    nav .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    nav h1 {
+      font-size: 1.5rem;
+    }
+    
+    nav h1 a {
+      color: white;
+      text-decoration: none;
+    }
+    
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+    
+    nav a:hover {
+      background: #34495e;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 20px;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: #3498db;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+    
+    .btn:hover {
+      background: #2980b9;
+    }
+    
+    .btn-success {
+      background: #27ae60;
+    }
+    
+    .btn-success:hover {
+      background: #229954;
+    }
+    
+    .btn-danger {
+      background: #e74c3c;
+    }
+    
+    .btn-danger:hover {
+      background: #c0392b;
+    }
+    
+    .card {
+      background: white;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .alert {
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 4px;
+    }
+    
+    .alert-error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    .alert-success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    form {
+      max-width: 600px;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #333;
+    }
+    
+    input, textarea, select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    .job-card {
+      background: white;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    
+    .job-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    .job-card h3 {
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+    }
+    
+    .job-card .company {
+      color: #7f8c8d;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .job-card .meta {
+      color: #95a5a6;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    
+    .job-card .description {
+      color: #555;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <h1>
+        <a href="/" style="display: flex; align-items: center; gap: 10px;">
+          <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="45" fill="#3498db"/>
+            <path d="M20 55 Q35 40 50 55 Q65 70 80 55" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/>
+            <path d="M20 45 Q35 30 50 45 Q65 60 80 45" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/>
+            <circle cx="30" cy="35" r="8" fill="#2ecc71"/>
+            <path d="M27 35 L29 37 L34 32" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>HireWave</span>
+        </a>
+      </h1>
+      <ul>
+        <% if logged_in? %>
+          <li><span style="color: #bdc3c7;">Welcome, <%= current_user['username'] %></span></li>
+          <% if employer? %>
+            <li><a href="/jobs/new">Post Job</a></li>
+            <li><a href="/my-jobs">My Jobs</a></li>
+          <% else %>
+            <li><a href="/my-applications">My Applications</a></li>
+          <% end %>
+          <li><a href="/logout">Logout</a></li>
+        <% else %>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/signup">Sign Up</a></li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <%= yield %>
+  </div>
+</body>
+</html>

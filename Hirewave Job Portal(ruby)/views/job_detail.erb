@@ -1,0 +1,42 @@
+<% if @job %>
+  <div class="card">
+    <h2><%= @job['title'] %></h2>
+    <h3 style="color: #7f8c8d; margin-bottom: 1rem;"><%= @job['company'] %></h3>
+    
+    <div class="meta" style="margin-bottom: 2rem; font-size: 1.1rem;">
+      <% if @job['location'] %>
+        📍 <%= @job['location'] %>
+      <% end %>
+      <% if @job['salary'] %>
+        | 💰 <%= @job['salary'] %>
+      <% end %>
+      <% if @job['job_type'] %>
+        | 💼 <%= @job['job_type'] %>
+      <% end %>
+    </div>
+    
+    <h4>Description</h4>
+    <p style="white-space: pre-wrap; line-height: 1.8; margin-bottom: 2rem;"><%= @job['description'] %></p>
+    
+    <% if jobseeker? %>
+      <% if @already_applied %>
+        <p class="alert alert-success">You have already applied to this job</p>
+      <% else %>
+        <h4>Apply for this position</h4>
+        <form method="POST" action="/jobs/<%= @job['id'] %>/apply">
+          <div class="form-group">
+            <label for="cover_letter">Cover Letter (Optional)</label>
+            <textarea id="cover_letter" name="cover_letter" placeholder="Tell the employer why you're a great fit..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-success">Submit Application</button>
+        </form>
+      <% end %>
+    <% elsif !logged_in? %>
+      <p><a href="/login" class="btn">Login to apply</a></p>
+    <% end %>
+    
+    <a href="/" class="btn" style="margin-top: 1rem; background: #95a5a6;">Back to Jobs</a>
+  </div>
+<% else %>
+  <div class="alert alert-error">Job not found</div>
+<% end %>
